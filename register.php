@@ -67,7 +67,8 @@
 				}else{
 					$sql = "INSERT INTO users (name, uname, email, cell, pass, photo) VALUES ('$name', '$uname', '$email', '$cell', '$hash_pass', '$file_name') ";
 					$connection -> query($sql);		
-					$mess = '<p class="alert alert-success">Your data is stable now ! <button class="close" data-dismiss="alert">&times;</button></p>';				
+					//$mess = '<p class="alert alert-success">Your data is stable now ! <button class="close" data-dismiss="alert">&times;</button></p>';
+					setMsg('Your data is stable now !');				
 					header('location:register.php');					
 				}
 
@@ -81,7 +82,10 @@
 					<h2>Registration Now</h2>
 					<?php if ( isset($mess) ) {
 						echo $mess;
-					} ?>
+					}
+						getMsg();
+					?>
+
 					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="">Name</label>

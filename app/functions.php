@@ -75,4 +75,17 @@ function fileUpload( $file, $location = '', $file_format = ['jpg', 'png', 'gif',
 			}			
 		}
 	}
+
+	/**
+	 * Flash Msg
+	 */
+	function setMsg($msg){
+		setcookie('msg', $msg, time() + 10 );
+	}
+
+	function getMsg(){
+		if ( isset($_COOKIE['msg']) ) {
+			echo '<p class="alert alert-$ss">' . $_COOKIE['msg'] . '<button class="close" data-dismiss="alert">&times;</button></p>';
+		}
+	}
 ?>
