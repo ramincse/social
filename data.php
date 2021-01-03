@@ -1,3 +1,15 @@
+<?php 
+	include_once "app/db.php";
+	include_once "app/functions.php";
+	session_start();
+
+	/**
+	 * Profile page access secuirity
+	 */
+	if ( !isset($_SESSION['email']) AND !isset($_SESSION['uname']) AND !isset($_SESSION['pass']) ) {
+		header('location:index.php');
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,66 +41,32 @@
 						</tr>
 					</thead>
 					<tbody>
+
+						<?php 
+							$sql = "SELECT * FROM users ORDER BY id DESC";
+							$data = $connection -> query($sql);
+
+							$i = 1;
+							while( $all_users = $data -> fetch_assoc() ) :
+						?>
 						<tr>
-							<td>1</td>
-							<td>Asraful Haque</td>
-							<td>haq@gmail.com</td>
-							<td>01717700811</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
+							<td><?php echo $i; $i++; ?></td>
+							<td><?php echo $all_users['name']; ?></td>
+							<td><?php echo $all_users['uname']; ?></td>
+							<td><?php echo $all_users['email']; ?></td>
+							<td><?php echo $all_users['cell']; ?></td>
+							<td><img src="students/<?php echo $all_users['photo']; ?>" alt=""></td>
 							<td>
 								<a class="btn btn-sm btn-info" href="#">View</a>
+
+								<?php if ( $all_users['id'] == $_SESSION['id'] ) : ?>
 								<a class="btn btn-sm btn-warning" href="#">Edit</a>
 								<a class="btn btn-sm btn-danger" href="#">Delete</a>
+								<?php endif; ?>
 							</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>Asraful Haque</td>
-							<td>haq@gmail.com</td>
-							<td>01717700811</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Asraful Haque</td>
-							<td>haq@gmail.com</td>
-							<td>01717700811</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Asraful Haque</td>
-							<td>haq@gmail.com</td>
-							<td>01717700811</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Asraful Haque</td>
-							<td>haq@gmail.com</td>
-							<td>01717700811</td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
-							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
-							</td>
-						</tr>
+
+						<?php endwhile; ?>
 						
 
 					</tbody>

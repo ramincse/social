@@ -66,4 +66,25 @@ if ( isset($_POST['signin']) ) {
 ```
 ### Logout System
 ```php
+if ( isset($_GET['logout']) AND $_GET['logout'] == 'success' ) {
+	session_destroy();
+	/**
+	 * Destroy Cookie for Relogin
+	 */
+	setcookie('user_login_id', '', time() - (365*24*60*60) );
+
+	//Redirect profile page				
+	header('location:index.php');
+}
+```
+### Show all users data
+```php 
+$sql = "SELECT * FROM users ORDER BY id DESC";
+$data = $connection -> query($sql);
+
+$i = 1;
+while( $all_users = $data -> fetch_assoc() ) :
+endwhile;
+
+echo $all_users['name'];
 ```

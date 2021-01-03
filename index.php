@@ -76,6 +76,7 @@
 							 * Set Cookie for Relogin
 							 */
 							setcookie('user_login_id', $login_user_data['id'], time() + (365*24*60*60) );
+							setcookie('user_login_pic', $login_user_data['photo'], time() + (365*24*60*60) );
 
 							//Redirect profile page
 							header('location:profile.php');
