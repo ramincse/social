@@ -119,7 +119,7 @@
 							<input name="register" class="btn btn-primary" type="submit" value="Sign Up">
 						</div>
 					</form>
-					<a class="btn btn-sm btn-info" href="index.php">Login Now</a>
+					<a class="btn btn-sm" href="index.php">Login Now</a>
 				</div>
 			</div>
 		</div>		

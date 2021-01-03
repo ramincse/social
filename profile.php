@@ -4,7 +4,26 @@
 ?>
 <?php 
 	session_start();
+	/**
+	 * Logout System
+	 */
+	if ( isset($_GET['logout']) AND $_GET['logout'] == 'success' ) {
+		session_destroy();
+		/**
+		 * Destroy Cookie for Relogin
+		 */
+		setcookie('user_login_id', '', time() - (365*24*60*60) );
 
+		//Redirect profile page				
+		header('location:index.php');
+	}
+
+	/**
+	 * Profile page access secuirity
+	 */
+	if ( !isset($_SESSION['email']) AND !isset($_SESSION['uname']) AND !isset($_SESSION['pass']) ) {
+		header('location:index.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +40,7 @@
 			<div class="card clearfix">
 				<div class="card-header">Profile of - <?php echo $_SESSION['name']; ?> <a class="btn btn-sm btn-info float-right" href="data.php">All members</a></div>
 				<div class="card-body">
-					<img class="shadow" style="width: 200px; height: 200px; display: block; margin: 10px auto 30px; border-radius: 50%; border: 10px solid #fff;" src="students/echo $_SESSION['photo'];" alt="">
+					<img class="shadow" style="width: 200px; height: 200px; display: block; margin: 10px auto 30px; border-radius: 50%; border: 10px solid #fff;" src="students/<?php echo $_SESSION['photo']; ?>" alt="">
 
 					<table class="table table-striped">
 						<tr>
@@ -43,7 +62,7 @@
 					</table>
 				</div>
 				<div class="card-footer">
-					<a class="btn btn-sm btn-info" href="logout.php">Logout</a>
+					<a class="btn btn-sm btn-info" href="?logout=success">Logout</a>
 				</div>
 			</div>
 		</div>		

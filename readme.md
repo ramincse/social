@@ -64,3 +64,6 @@ if ( isset($_POST['signin']) ) {
 	}
 }
 ```
+### Logout System
+```php
+```

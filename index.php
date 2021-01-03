@@ -1,6 +1,39 @@
 <?php 
 	include_once "app/db.php";
 	include_once "app/functions.php";
+	session_start();
+
+	/**
+	 * 
+	 */
+	if ( isset($_COOKIE['user_login_id']) ) {
+		$user_id = $_COOKIE['user_login_id'];
+
+		$sql = "SELECT * FROM users WHERE id = '$user_id'";
+		$data = $connection -> query($sql);
+
+		$count = $data -> num_rows;
+		$login_user_data = $data -> fetch_assoc();
+
+		//Session manage
+		$_SESSION['id'] 	= $login_user_data['id'];
+		$_SESSION['name'] 	= $login_user_data['name'];
+		$_SESSION['uname'] 	= $login_user_data['uname'];
+		$_SESSION['email'] 	= $login_user_data['email'];
+		$_SESSION['cell'] 	= $login_user_data['cell'];
+		$_SESSION['photo'] 	= $login_user_data['photo'];
+
+		//Redirect profile page
+		header('location:profile.php');
+	}
+
+	/**
+	 * Profile page access secuirity
+	 */
+	if ( isset($_SESSION['photo']) AND isset($_SESSION['id']) ) {
+		header('location:profile.php');
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +64,20 @@
 
 					if ( $count == 1 ) {
 						if ( password_verify($pass, $login_user_data['pass']) == true ) {
-							session_start();
+							//Session manage
 							$_SESSION['id'] 	= $login_user_data['id'];
 							$_SESSION['name'] 	= $login_user_data['name'];
 							$_SESSION['uname'] 	= $login_user_data['uname'];
 							$_SESSION['email'] 	= $login_user_data['email'];
 							$_SESSION['cell'] 	= $login_user_data['cell'];
 							$_SESSION['photo'] 	= $login_user_data['photo'];
-							
+
+							/**
+							 * Set Cookie for Relogin
+							 */
+							setcookie('user_login_id', $login_user_data['id'], time() + (365*24*60*60) );
+
+							//Redirect profile page
 							header('location:profile.php');
 						}else{
 							$mess = '<p class="alert alert-danger">Wrong password ! <button class="close" data-dismiss="alert">&times;</button></p>';	
@@ -72,7 +111,7 @@
 							<input name="signin" class="btn btn-primary" type="submit" value="Log In">
 						</div>
 					</form>
-					<a class="btn btn-sm btn-info" href="register.php">Create an account</a>
+					<a class="btn btn-sm" href="register.php">Create an account</a>
 				</div>
 			</div>
 		</div>		
