@@ -7,11 +7,8 @@ This is a learning purpose project for profile login and user registration syste
 - HTML 5
 - CSS 3
 - javaScript
-- jQuery
 - PHP
 - MySQL
-- OOP
-- PDO
 
 ### Flash message
 ```php
@@ -87,4 +84,10 @@ while( $all_users = $data -> fetch_assoc() ) :
 endwhile;
 
 echo $all_users['name'];
+```
+### Page security System
+```php 
+if ( !isset($_SESSION['email']) AND !isset($_SESSION['uname']) AND !isset($_SESSION['pass']) ) {
+	header('location:index.php');
+}
 ```
