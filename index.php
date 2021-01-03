@@ -31,6 +31,14 @@
 
 					if ( $count == 1 ) {
 						if ( password_verify($pass, $login_user_data['pass']) == true ) {
+							session_start();
+							$_SESSION['id'] 	= $login_user_data['id'];
+							$_SESSION['name'] 	= $login_user_data['name'];
+							$_SESSION['uname'] 	= $login_user_data['uname'];
+							$_SESSION['email'] 	= $login_user_data['email'];
+							$_SESSION['cell'] 	= $login_user_data['cell'];
+							$_SESSION['photo'] 	= $login_user_data['photo'];
+							
 							header('location:profile.php');
 						}else{
 							$mess = '<p class="alert alert-danger">Wrong password ! <button class="close" data-dismiss="alert">&times;</button></p>';	

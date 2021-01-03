@@ -1,3 +1,11 @@
+<?php 
+	include_once "app/db.php";
+	include_once "app/functions.php";
+?>
+<?php 
+	session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -11,22 +19,26 @@
 	<body>
 		<div class="wrap shadow">
 			<div class="card clearfix">
-				<div class="card-header">Profile of - Ruhul Amin <a class="btn btn-sm btn-info float-right" href="data.php">All members</a></div>
+				<div class="card-header">Profile of - <?php echo $_SESSION['name']; ?> <a class="btn btn-sm btn-info float-right" href="data.php">All members</a></div>
 				<div class="card-body">
-					<img style="width: 200px; height: 200px; display: block; margin: auto;" src="assets/media/img/pp_photo/82e2ae94.webp" alt="">
+					<img class="shadow" style="width: 200px; height: 200px; display: block; margin: 10px auto 30px; border-radius: 50%; border: 10px solid #fff;" src="students/echo $_SESSION['photo'];" alt="">
 
 					<table class="table table-striped">
 						<tr>
 							<td>Name</td>
-							<td>Ruhul Amin</td>
+							<td><?php echo $_SESSION['name']; ?></td>
 						</tr>
 						<tr>
 							<td>Username</td>
-							<td>Ruhul Amin</td>
+							<td><?php echo $_SESSION['uname']; ?></td>
 						</tr>
 						<tr>
 							<td>Email</td>
-							<td>Ruhul Amin</td>
+							<td><?php echo $_SESSION['email']; ?></td>
+						</tr>
+						<tr>
+							<td>Cell</td>
+							<td><?php echo $_SESSION['cell']; ?></td>
 						</tr>
 					</table>
 				</div>
